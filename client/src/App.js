@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import SoccerPlayer from './SoccerPlayer'
 
 class App extends React.Component {
   constructor() {
@@ -29,6 +30,7 @@ class App extends React.Component {
   render() {
     return(
       <>
+      <SoccerPlayer />
       </>
     )
   }
