@@ -1,40 +1,28 @@
-import React, { Component } from "react";
-import axios from "axios";
-import SoccerPlayer from './SoccerPlayer'
+import React, { useEffect } from "react";
+import SoccerPlayers from "./SoccerPlayers";
+import { useLocalStorage } from "./customHook";
+import axios from 'axios';
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      soccerPlayersData: [],
-    };
-  }
+function App() {
+  const [data, setData] = useLocalStorage("soccerKey", false);
 
-  componentDidMount() {
-    axios
-      .get(`http://localhost:5000/api/players`)
-      .then((result) => {
-        console.log(result);
-        this.setState({
-          soccerPlayersData: result.data,
+  useEffect(() => {
+    if (data === true) {
+      console.log("data in localStorage");
+    } else {
+      axios
+        .get("http://localhost:5000/api/players")
+        .then(result => {
+          console.log(result);
+          setData(result.data)
+        })
+        .catch(error => {
+          console.log("error:", error);
         });
-      })
-      .catch((error) => {
-        this.setState({
-          soccerPlayersData: this.props.data,
-        });
-        console.log("error:", error);
-      });
-  }
+    }
+  }, []);
 
-  render() {
-    return(
-      <>
-      <SoccerPlayer />
-      </>
-    )
-  }
+  return <SoccerPlayers data={data} />;
 }
-
 
 export default App;
