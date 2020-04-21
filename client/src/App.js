@@ -7,7 +7,7 @@ function App() {
   const [data, setData] = useLocalStorage("soccerKey", false);
 
   useEffect(() => {
-    if (data === true) {
+    if (data) {
       console.log("data in localStorage");
     } else {
       axios

@@ -24,6 +24,7 @@ class SoccerPlayers extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     axios
       .get("http://localhost:5000/api/players")
       .then((result) => {
